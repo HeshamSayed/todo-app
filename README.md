@@ -63,7 +63,7 @@ todo-app/
 
 ```bash
 # Clone from your GitHub repository
-git clone https://github.com/yourusername/todo-app.git
+git clone https://github.com/HeshamSayed/todo-app.git
 cd todo-app
 ```
 
@@ -293,7 +293,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📞 Support
 
-For support, email your-email@example.com or create an issue in this repository.
+For support, email heshamsayed.dev@gmail.com or create an issue in this repository.
 
 ## 🚧 Roadmap
 
@@ -309,5 +309,11 @@ For support, email your-email@example.com or create an issue in this repository.
 - [ ] Bulk operations (delete, update multiple todos)
 
 ---
+
+---
+
+**Developer**: Hesham Sayed  
+**Email**: heshamsayed.dev@gmail.com  
+**GitHub**: [HeshamSayed](https://github.com/HeshamSayed)
 
 **Built with ❤️ using Node.js, TypeScript, React, and MongoDB**

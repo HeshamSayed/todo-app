@@ -4,7 +4,7 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "nodemon src/test-server.ts",
+    "dev": "nodemon src/server-fallback.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
