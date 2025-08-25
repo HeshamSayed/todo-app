@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 import authRoutes from './routes/auth';
@@ -28,7 +28,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/todos', todoRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (req: express.Request, res: express.Response) => {
   res.json({ status: 'OK', message: 'Todo API is running' });
 });
 
@@ -36,21 +36,27 @@ app.get('/api/health', (req, res) => {
 app.use(errorHandler);
 
 // 404 handler
-app.use('*', (req, res) => {
+app.use('*', (req: express.Request, res: express.Response) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/todoapp')
+// Connect to MongoDB (with graceful fallback)
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/todoapp';
+
+mongoose.connect(mongoUri)
   .then(() => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
+    console.log('✅ Connected to MongoDB');
   })
   .catch((error) => {
-    console.error('MongoDB connection error:', error);
-    process.exit(1);
+    console.warn('⚠️  MongoDB connection failed:', error.message);
+    console.log('📝 Server will start but database features will not work');
   });
+
+// Start server regardless of MongoDB connection
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🌐 API available at: http://localhost:${PORT}`);
+  console.log(`💡 Health check: http://localhost:${PORT}/api/health`);
+});
 
 export default app;
